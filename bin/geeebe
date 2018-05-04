@@ -19,8 +19,9 @@ program
     console.log(`Init ${source} -> ${destination}`);
 
     function copy(file) {
-      console.log(`Copying ${file}...`)
-      fs.copyFileSync(path.resolve(source, file), path.resolve(destination, file));
+      const toFile = file.endsWith('_publish') ? file.slice(0, -8) : file;
+      console.log(`Copying ${toFile}...`)
+      fs.copyFileSync(path.resolve(source, file), path.resolve(destination, toFile));
     }
 
     copy('.editorconfig');
