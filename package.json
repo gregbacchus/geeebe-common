@@ -3,12 +3,12 @@
   "version": "1.0.4",
   "description": "",
   "private": false,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "test": "npx jest --coverage",
-    "build": "rm -rf dest && npx tsc --outDir dest --declaration --sourceMap",
-    "prepublish": "npm run build && npm version patch"
+    "build": "rm -rf dest && npx tsc --outDir dist --declaration --sourceMap",
+    "prepublishOnly": "npm run build && npm version patch"
   },
   "author": "Greg Bacchus",
   "license": "ISC",
