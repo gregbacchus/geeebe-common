@@ -6,7 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "npx jest --coverage",
-    "build": "rm -rf dest && npx tsc --outDir dest --declaration --sourceMap"
+    "build": "rm -rf dest && npx tsc --outDir dest --declaration --sourceMap",
+    "prepublish": "npm run build && npm version patch"
   },
   "author": "Greg Bacchus",
   "license": "ISC",
