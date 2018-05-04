@@ -1,5 +1,5 @@
-import * as stackTrace from 'stack-trace';
 import os = require('os');
+import * as stackTrace from 'stack-trace';
 
 export interface ILogger {
   (message: string, meta?: {}): void;
@@ -29,7 +29,7 @@ export const createLogger = (function createLogger(writer: () => ILogWriter, met
       const type = frame.getTypeName();
       const method = frame.getMethodName();
       Object.assign(log, {
-        _method: method
+        method: method
           ? `${type}.${method}`
           : frame.getFunctionName(),
       });

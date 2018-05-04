@@ -17,6 +17,7 @@
     "@types/node": "^8.10.12",
     "@types/stack-trace": "0.0.29",
     "jest": "^22.4.3",
+    "tslint": "^5.10.0",
     "typescript": "^2.8.3"
   },
   "dependencies": {
