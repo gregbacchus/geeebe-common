@@ -15,7 +15,11 @@
   "devDependencies": {
     "@types/jest": "^22.2.3",
     "@types/node": "^8.10.12",
+    "@types/stack-trace": "0.0.29",
     "jest": "^22.4.3",
     "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "stack-trace": "0.0.10"
   }
 }

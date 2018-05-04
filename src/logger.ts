@@ -1,3 +1,4 @@
+import * as stackTrace from 'stack-trace';
 import os = require('os');
 
 export interface ILogger {
@@ -15,23 +16,37 @@ const systemMeta = {
   pid: process.pid,
 };
 
-export const logger = (function logger(writer: ILogWriter, meta?: {}): ILogger {
+export const createLogger = (function createLogger(writer: () => ILogWriter, meta?: {}): ILogger {
   const baseMeta = Object.assign({}, meta);
   const clz: any = (message: string, meta?: {}): void => {
-    // const stack = new Error().stack;
-    // const frame = stack && stack[1];
-    const log = { message, timestamp: new Date() };
+    const log: any = { message, timestamp: new Date() };
+    try {
+      // extend data
+      const frame = stackTrace.get()[1];
+      log.file = frame.getFileName();
+      log.line = Number(frame.getLineNumber());
+
+      const type = frame.getTypeName();
+      const method = frame.getMethodName();
+      Object.assign(log, {
+        _method: method
+          ? `${type}.${method}`
+          : frame.getFunctionName(),
+      });
+    } catch (err) {
+      console.error(err);
+    }
     Object.assign(log, systemMeta, baseMeta, meta);
-    writer.write(log);
+    writer().write(log);
   };
   clz.error = (error: Error, meta?: {}): void => {
     const log = { message: `${error.name}: ${error.message}`, stack: error.stack, timestamp: new Date() };
     Object.assign(log, error, systemMeta, baseMeta, meta);
-    writer.write(log);
+    writer().write(log);
   };
   clz.child = (meta: {}): ILogger => {
     const combinedMeta = Object.assign({}, baseMeta, meta);
-    return logger(writer, combinedMeta);
+    return createLogger(writer, combinedMeta);
   };
   return clz;
 });
@@ -76,11 +91,12 @@ export class ConsoleWriter implements ILogWriter {
   }
 }
 
-const log: ILogger = logger(new ConsoleWriter());
-// const log: ILogger = logger({ write: (log: {}) => { console.log(JSON.stringify(log)); } });
+export const loggerOptions: { writer?: ILogWriter } = {};
+const consoleWriter = new ConsoleWriter();
+export const logger: ILogger = createLogger(() => loggerOptions.writer || consoleWriter);
 
-log('test');
-log.error(new Error('foo bar'));
+// logger('test');
+// logger.error(new Error('foo bar'));
 
-const child = log.child({ module: 'test' }).child({ module: 'asdf' });
-child('child test', { a: 12, b: 3 });
+// const child = logger.child({ module: 'test' }).child({ module: 'asdf' });
+// child('child test', { a: 12, b: 3 });
