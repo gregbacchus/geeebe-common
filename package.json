@@ -1,0 +1,19 @@
+{
+  "name": "@geeebe/common",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "npx jest --coverage",
+    "build": "rm -rf dest && npx tsc --outDir dest --declaration --sourceMap"
+  },
+  "author": "Greg Bacchus",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "@types/node": "^8.10.12",
+    "jest": "^22.4.3",
+    "typescript": "^2.8.3"
+  }
+}
