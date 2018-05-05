@@ -38,7 +38,9 @@ program
       fs.mkdirSync(resolve(destination, 'test'));
     } catch{ }
 
-    const package = fs.readFileSync(resolve(destination, 'package.json'));
+    const package = JSON.parse(
+      fs.readFileSync(resolve(destination, 'package.json')).toString(),
+    );
     Object.assign(package, {
       main: './dist/index.js',
       types: './dist/index.d.ts',
@@ -52,6 +54,7 @@ program
     fs.writeFileSync(
       resolve(destination, 'package.json'),
       JSON.stringify(package, null, 2),
+      'utf-8',
     );
 
     execSync('npm i -D @types/node jest tslint typescript');
