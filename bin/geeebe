@@ -31,8 +31,12 @@ program
     copy('tsconfig.json');
     copy('tslint.json');
 
-    fs.mkdirSync(resolve(destination, 'src'));
-    fs.mkdirSync(resolve(destination, 'test'));
+    try {
+      fs.mkdirSync(resolve(destination, 'src'));
+    } catch{ }
+    try {
+      fs.mkdirSync(resolve(destination, 'test'));
+    } catch{ }
 
     const package = fs.readFileSync(resolve(destination, 'package.json'));
     Object.assign(package, {
