@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 
+const { execSync } = require('child_process');
 const program = require('commander');
 const fs = require('fs');
-const path = require('path');
+const { resolve } = require('path');
 
 program
   .command('init')
   .option('-r, --recursive', 'Remove recursively')
   .action((cmd) => {
-    const source = path.resolve(__dirname, '..');
+    const source = resolve(__dirname, '..');
     const destination = process.cwd();
 
     if (source === destination) {
@@ -21,7 +22,7 @@ program
     function copy(file) {
       const toFile = file.endsWith('_publish') ? file.slice(0, -8) : file;
       console.log(`Copying ${toFile}...`)
-      fs.copyFileSync(path.resolve(source, file), path.resolve(destination, toFile));
+      fs.copyFileSync(resolve(source, file), resolve(destination, toFile));
     }
 
     copy('.editorconfig');
@@ -29,6 +30,27 @@ program
     copy('.npmignore_publish');
     copy('tsconfig.json');
     copy('tslint.json');
+
+    fs.mkdirSync(resolve(destination, 'src'));
+    fs.mkdirSync(resolve(destination, 'test'));
+
+    const package = fs.readFileSync(resolve(destination, 'package.json'));
+    Object.assign(package, {
+      main: './dist/index.js',
+      types: './dist/index.d.ts',
+    });
+    package.scripts = Object.assign(package.scripts, {
+      test: 'npx jest --coverage',
+      build: 'rm -rf dist && npx tsc --outDir dist --declaration --sourceMap',
+      prepublishOnly: 'npm run build && npm version patch',
+    });
+
+    fs.writeFileSync(
+      resolve(destination, 'package.json'),
+      JSON.stringify(package, null, 2),
+    );
+
+    execSync('npm i -D @types/node jest tslint typescript');
 
     console.log('. Done');
   });
