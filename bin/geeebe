@@ -7,7 +7,6 @@ const { resolve } = require('path');
 
 program
   .command('init')
-  .option('-r, --recursive', 'Remove recursively')
   .action((cmd) => {
     const source = resolve(__dirname, '..');
     const destination = process.cwd();
@@ -43,7 +42,7 @@ program
     );
     Object.assign(package, {
       main: './dist/index.js',
-      types: './dist/index.d.ts',
+      types: './src/index.ts',
     });
     package.scripts = Object.assign(package.scripts || {}, {
       test: 'npx jest --coverage',
