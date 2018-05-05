@@ -47,7 +47,7 @@ program
     });
     package.scripts = Object.assign(package.scripts || {}, {
       test: 'npx jest --coverage',
-      build: 'rm -rf dist && npx tsc --outDir dist --declaration --sourceMap',
+      build: 'rm -rf dist && npx tsc --outDir dist --sourceMap',
       prepublishOnly: 'npm run build && npm version patch',
     });
 

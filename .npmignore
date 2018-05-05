@@ -9,7 +9,3 @@
 *.log
 .npmrc
 !/dist
-/src
-/test
-!.gitignore
-!.npmignore

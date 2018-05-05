@@ -4,10 +4,10 @@
   "description": "",
   "private": false,
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
   "scripts": {
     "test": "npx jest --coverage",
-    "build": "rm -rf dist && npx tsc --outDir dist --declaration --sourceMap",
+    "build": "rm -rf dist && npx tsc --outDir dist --sourceMap",
     "prepublishOnly": "npm run build && npm version patch"
   },
   "bin": {
