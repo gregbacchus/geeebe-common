@@ -69,6 +69,7 @@ program
       'utf-8',
     );
 
+    console.log('Installing packages...');
     execSync('npm i -D @types/jest @types/node jest tslint typescript nodemon ts-node ts-jest');
 
     console.log('. Done');
