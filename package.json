@@ -10,6 +10,16 @@
     "build": "rm -rf dist && npx tsc --outDir dist --sourceMap",
     "prepublishOnly": "npm run build && npm version patch"
   },
+  "keywords": [
+    "typescript",
+    "tslint",
+    "ts-node",
+    "jest",
+    "ts-jest",
+    "nodemon",
+    "tsc",
+    "setup"
+  ],
   "bin": {
     "geeebe": "./bin/geeebe"
   },
