@@ -6,7 +6,8 @@ const fs = require('fs');
 const { resolve } = require('path');
 
 function patchJson(path, ...patches) {
-  const json = fs.exists(path)
+  console.log(`Patching ${path}...`);
+  const json = fs.existsSync(path)
     ? JSON.parse(
       fs.readFileSync(path).toString() || '{}',
     )
@@ -60,6 +61,9 @@ program
     try {
       fs.mkdirSync(resolve(destination, 'test'));
     } catch{ }
+    try {
+      fs.mkdirSync(resolve(destination, '.vscode'));
+    } catch{ }
 
     patchJson(resolve(destination, 'package.json'),
       (package) => {
@@ -93,14 +97,14 @@ program
 
     patchJson(resolve(destination, '.vscode/extensions.json'),
       (json) => {
-        json.reccomendations = json.reccomendations || [];
-        json.reccomendations.push('steoates.autoimport');
-        json.reccomendations.push('editorconfig.editorconfig');
-        json.reccomendations.push('christian-kohler.path-intellisense');
-        json.reccomendations.push('eg2.tslint');
-        json.reccomendations.push('patrys.vscode-code-outline');
-        json.reccomendations.push('waderyan.gitblame');
-        json.reccomendations.push('codezombiech.gitignore');
+        json.recommendations = json.recommendations || [];
+        json.recommendations.push('steoates.autoimport');
+        json.recommendations.push('editorconfig.editorconfig');
+        json.recommendations.push('christian-kohler.path-intellisense');
+        json.recommendations.push('eg2.tslint');
+        json.recommendations.push('patrys.vscode-code-outline');
+        json.recommendations.push('waderyan.gitblame');
+        json.recommendations.push('codezombiech.gitignore');
       }
     );
 
