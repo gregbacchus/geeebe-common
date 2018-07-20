@@ -7,7 +7,9 @@ const { resolve } = require('path');
 
 program
   .command('init')
+  .option('-l, --lib-only', 'Only install library helpers')
   .action((cmd) => {
+    const libOnly = cmd.libOnly;
     const source = resolve(__dirname, '..');
     const destination = process.cwd();
 
@@ -27,6 +29,10 @@ program
     copy('.editorconfig');
     copy('.gitignore_publish');
     copy('.npmignore_publish');
+    copy('jest.config.js');
+    if (!libOnly) {
+      copy('nodemon.json');
+    }
     copy('tsconfig.json');
     copy('tslint.json');
 
@@ -45,10 +51,16 @@ program
       types: './src/index.ts',
     });
     package.scripts = Object.assign(package.scripts || {}, {
-      test: 'npx jest --coverage',
       build: 'rm -rf dist && npx tsc --outDir dist --sourceMap',
       prepublishOnly: 'npm run build && npm version patch',
+      test: 'npx jest --coverage',
     });
+    if (!libOnly) {
+      package.scripts = Object.assign(package.scripts || {}, {
+        start: "node -r ts-node/register src/index.ts",
+        watch: "npx nodemon",
+      });
+    }
 
     fs.writeFileSync(
       resolve(destination, 'package.json'),

@@ -11,3 +11,4 @@
 *.js
 *.d.ts
 *.map
+!jest.config.js
