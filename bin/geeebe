@@ -68,7 +68,7 @@ program
       'utf-8',
     );
 
-    execSync('npm i -D @types/jest @types/node jest tslint typescript');
+    execSync('npm i -D @types/jest @types/node jest tslint typescript nodemon ts-node ts-jest');
 
     console.log('. Done');
   });
