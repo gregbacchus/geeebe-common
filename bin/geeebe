@@ -5,6 +5,24 @@ const program = require('commander');
 const fs = require('fs');
 const { resolve } = require('path');
 
+function patchJson(path, ...patches) {
+  const json = fs.exists(path)
+    ? JSON.parse(
+      fs.readFileSync(path).toString() || '{}',
+    )
+    : {};
+
+  for (const patch of patches) {
+    patch(json);
+  }
+
+  fs.writeFileSync(
+    path,
+    JSON.stringify(json, null, 2),
+    'utf-8',
+  );
+}
+
 program
   .command('init')
   .option('-l, --lib-only', 'Only install library helpers')
@@ -43,30 +61,47 @@ program
       fs.mkdirSync(resolve(destination, 'test'));
     } catch{ }
 
-    const package = JSON.parse(
-      fs.readFileSync(resolve(destination, 'package.json')).toString(),
+    patchJson(resolve(destination, 'package.json'),
+      (package) => {
+        Object.assign(package, {
+          main: './dist/index.js',
+          types: './src/index.ts',
+        });
+        package.scripts = Object.assign(package.scripts || {}, {
+          build: 'rm -rf dist && npx tsc --outDir dist --sourceMap',
+          lint: 'npx tslint --project tslint.json -t verbose',
+          prepublishOnly: 'npm run lint && npm run build && npm version patch',
+          test: 'npx jest --coverage',
+        });
+        if (!libOnly) {
+          package.scripts = Object.assign(package.scripts || {}, {
+            start: 'node -r ts-node/register src/index.ts',
+            watch: 'npx nodemon',
+          });
+        }
+      }
     );
-    Object.assign(package, {
-      main: './dist/index.js',
-      types: './src/index.ts',
-    });
-    package.scripts = Object.assign(package.scripts || {}, {
-      build: 'rm -rf dist && npx tsc --outDir dist --sourceMap',
-      lint: 'npx tslint --project tslint.json -t verbose',
-      prepublishOnly: 'npm run lint && npm run build && npm version patch',
-      test: 'npx jest --coverage',
-    });
-    if (!libOnly) {
-      package.scripts = Object.assign(package.scripts || {}, {
-        start: 'node -r ts-node/register src/index.ts',
-        watch: 'npx nodemon',
-      });
-    }
 
-    fs.writeFileSync(
-      resolve(destination, 'package.json'),
-      JSON.stringify(package, null, 2),
-      'utf-8',
+    patchJson(resolve(destination, '.vscode/settings.json'),
+      (json) => {
+        Object.assign(json, {
+          'eslint.enable': false,
+          'editor.formatOnSave': true
+        });
+      }
+    );
+
+    patchJson(resolve(destination, '.vscode/extensions.json'),
+      (json) => {
+        json.reccomendations = json.reccomendations || [];
+        json.reccomendations.push('steoates.autoimport');
+        json.reccomendations.push('editorconfig.editorconfig');
+        json.reccomendations.push('christian-kohler.path-intellisense');
+        json.reccomendations.push('eg2.tslint');
+        json.reccomendations.push('patrys.vscode-code-outline');
+        json.reccomendations.push('waderyan.gitblame');
+        json.reccomendations.push('codezombiech.gitignore');
+      }
     );
 
     console.log('Installing packages...');
