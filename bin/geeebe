@@ -104,7 +104,6 @@ program
         json.recommendations.push('editorconfig.editorconfig');
         json.recommendations.push('christian-kohler.path-intellisense');
         json.recommendations.push('eg2.tslint');
-        json.recommendations.push('patrys.vscode-code-outline');
         json.recommendations.push('waderyan.gitblame');
         json.recommendations.push('codezombiech.gitignore');
       }
