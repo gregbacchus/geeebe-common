@@ -99,13 +99,24 @@ program
 
     patchJson(resolve(destination, '.vscode/extensions.json'),
       (json) => {
-        json.recommendations = json.recommendations || [];
-        json.recommendations.push('steoates.autoimport');
-        json.recommendations.push('editorconfig.editorconfig');
-        json.recommendations.push('christian-kohler.path-intellisense');
-        json.recommendations.push('eg2.tslint');
-        json.recommendations.push('waderyan.gitblame');
-        json.recommendations.push('codezombiech.gitignore');
+        const original = json.recommendations || [];
+        const set = {};
+        original.forEach((rec) => {
+          set[rec] = true;
+        });
+        set['steoates.autoimport'];
+        set['editorconfig.editorconfig'];
+        set['christian-kohler.path-intellisense'];
+        set['eg2.tslint'];
+        set['waderyan.gitblame'];
+        set['codezombiech.gitignore'];
+
+        const recommendations = [];
+        for (const key in set) {
+          if (!set.hasOwnProperty(key) || !set[key]) return;
+          recommendations.push(key);
+        }
+        json.recommendations = recommendations;
       }
     );
 
