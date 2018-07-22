@@ -82,7 +82,9 @@ program
             start: 'node -r ts-node/register src/index.ts',
             watch: 'npx nodemon',
           });
+          delete package.nodemonConfig;
         }
+        delete package.jest;
       }
     );
 
