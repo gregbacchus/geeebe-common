@@ -92,7 +92,10 @@ program
       (json) => {
         Object.assign(json, {
           'eslint.enable': false,
-          'editor.formatOnSave': true
+          'editor.formatOnSave': true,
+          'files.trimTrailingWhitespace': true,
+          'files.insertFinalNewline': true,
+          'tslint.autoFixOnSave': true
         });
       }
     );
