@@ -19,7 +19,7 @@ function patchJson(path, ...patches) {
 
   fs.writeFileSync(
     path,
-    JSON.stringify(json, null, 2),
+    JSON.stringify(json, null, 2) + '\n',
     'utf-8',
   );
 }
