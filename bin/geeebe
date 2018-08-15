@@ -107,12 +107,12 @@ program
         original.forEach((rec) => {
           set[rec] = true;
         });
-        set['steoates.autoimport'];
-        set['editorconfig.editorconfig'];
-        set['christian-kohler.path-intellisense'];
-        set['eg2.tslint'];
-        set['waderyan.gitblame'];
-        set['codezombiech.gitignore'];
+        set['steoates.autoimport'] = true;
+        set['editorconfig.editorconfig'] = true;
+        set['christian-kohler.path-intellisense'] = true;
+        set['eg2.tslint'] = true;
+        set['waderyan.gitblame'] = true;
+        set['codezombiech.gitignore'] = true;
 
         const recommendations = [];
         for (const key in set) {
