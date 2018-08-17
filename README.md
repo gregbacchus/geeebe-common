@@ -54,7 +54,7 @@ Some simple functions for time and duration
 import { Time } from '@geeebe/common';
 
 const fiveMinutes = Time.minutes(5); // 5 min in ms = 5 * 60 * 1000
-const sevenHours = Time.hours(5); // 7 hours in ms
+const sevenHours = Time.hours(7); // 7 hours in ms
 const someTime = Time.days(2) + Time.hours(3) + Time.seconds(2);
 
 // and then
