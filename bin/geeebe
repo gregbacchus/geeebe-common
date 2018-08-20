@@ -75,6 +75,7 @@ program
           build: 'rm -rf dist && npx tsc --outDir dist --sourceMap',
           lint: 'npx tslint --project tslint.json -t verbose',
           prepublishOnly: 'npm run lint && npm run build && npm version patch',
+          postpublish: 'git push',
           test: 'npx jest --coverage',
         });
         if (!libOnly) {
