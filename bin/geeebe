@@ -59,9 +59,6 @@ program
       fs.mkdirSync(resolve(destination, 'src'));
     } catch{ }
     try {
-      fs.mkdirSync(resolve(destination, 'test'));
-    } catch{ }
-    try {
       fs.mkdirSync(resolve(destination, '.vscode'));
     } catch{ }
 
