@@ -75,15 +75,21 @@ Methods:
 * `days(d: number): Duration`
 * `toMs(d: Duration): number`
 * `toSeconds(d: Duration): number`
-* `toMinuts(d: Duration): number`
+* `toMinutes(d: Duration): number`
 * `toHours(d: Duration): number`
 * `toDays(d: Duration): number`
 * `past(interval: Duration): Date`
 * `future(interval: Duration): Date`
 
-Constans:
+Constants:
 
 * `SECOND = 1000`
 * `MINUTE = 60 * Time.SECOND`
 * `HOUR = 60 * Time.MINUTE`
 * `DAY = 24 * Time.HOUR`
+
+Async sleep function
+
+```typescript
+await sleep(Time.seconds(45));
+```
