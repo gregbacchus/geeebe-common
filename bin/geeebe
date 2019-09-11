@@ -108,7 +108,7 @@ program
         set['steoates.autoimport'] = true;
         set['editorconfig.editorconfig'] = true;
         set['christian-kohler.path-intellisense'] = true;
-        set['eg2.tslint'] = true;
+        set['ms-vscode.vscode-typescript-tslint-plugin'] = true;
         set['waderyan.gitblame'] = true;
         set['codezombiech.gitignore'] = true;
 
