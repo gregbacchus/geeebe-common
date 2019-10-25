@@ -46,6 +46,7 @@ program
     }
 
     copy('.editorconfig');
+    copy('.dockerignore');
     copy('.gitignore_publish');
     copy('.npmignore_publish');
     copy('jest.config.js');
