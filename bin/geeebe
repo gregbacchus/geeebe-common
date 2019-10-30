@@ -41,9 +41,24 @@ program
 
     function copy(file) {
       const toFile = file.endsWith('_publish') ? file.slice(0, -8) : file;
-      console.log(`Copying ${toFile}...`)
+      console.log(`Copying ${toFile}...`);
       fs.copyFileSync(resolve(source, file), resolve(destination, toFile));
     }
+
+    function copyOnce(file) {
+      const toFile = file.endsWith('_publish') ? file.slice(0, -8) : file;
+      if (fs.exists(toFile)) return;
+
+      console.log(`Copying ${toFile}...`);
+      fs.copyFileSync(resolve(source, file), resolve(destination, toFile));
+    }
+
+    try {
+      fs.mkdirSync(resolve(destination, 'src'));
+    } catch{ }
+    try {
+      fs.mkdirSync(resolve(destination, '.vscode'));
+    } catch{ }
 
     copy('.editorconfig');
     copy('.dockerignore');
@@ -52,16 +67,10 @@ program
     copy('jest.config.js');
     if (!libOnly) {
       copy('nodemon.json');
+      copyOnce('.vscode/launch.json');
     }
     copy('tsconfig.json');
     copy('tslint.json');
-
-    try {
-      fs.mkdirSync(resolve(destination, 'src'));
-    } catch{ }
-    try {
-      fs.mkdirSync(resolve(destination, '.vscode'));
-    } catch{ }
 
     patchJson(resolve(destination, 'package.json'),
       (package) => {
