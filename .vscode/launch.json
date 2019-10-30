@@ -19,6 +19,48 @@
       "sourceMaps": true,
       "cwd": "${workspaceRoot}",
       "protocol": "inspector",
+    },
+    {
+      "name": "All Tests",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+      "stopOnEntry": false,
+      "args": [
+        "--runInBand",
+        "--no-cache"
+      ],
+      "cwd": "${workspaceRoot}",
+      "preLaunchTask": null,
+      "runtimeExecutable": null,
+      "runtimeArgs": [
+        "--nolazy"
+      ],
+      "console": "internalConsole",
+      "sourceMaps": true
+    },
+    {
+      "name": "Tests in Current File",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+      "stopOnEntry": false,
+      "args": [
+        "--runInBand",
+        "--no-cache",
+        "--config",
+        "jest.config.js",
+        "--runTestsByPath",
+        "${relativeFile}"
+      ],
+      "cwd": "${workspaceRoot}",
+      "preLaunchTask": null,
+      "runtimeExecutable": null,
+      "runtimeArgs": [
+        "--nolazy"
+      ],
+      "console": "internalConsole",
+      "sourceMaps": true
     }
   ]
 }
