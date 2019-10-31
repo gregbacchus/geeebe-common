@@ -15,11 +15,11 @@ export namespace HrTime {
   export const hours = (h: number): HrDuration => ms(h * Time.HOUR);
   export const days = (d: number): HrDuration => ms(d * Time.DAY);
 
-  export const getMs = (d: HrDuration): number => Math.round(toMs(d));
-  export const getSeconds = (d: HrDuration): number => Math.round(toMs(d) / Time.SECOND);
-  export const getMinutes = (d: HrDuration): number => Math.round(toMs(d) / Time.MINUTE);
-  export const getHours = (d: HrDuration): number => Math.round(toMs(d) / Time.HOUR);
-  export const getDays = (d: HrDuration): number => Math.round(toMs(d) / Time.DAY);
+  export const wholeMs = (d: HrDuration): number => Math.round(toMs(d));
+  export const wholeSeconds = (d: HrDuration): number => Math.round(toMs(d) / Time.SECOND);
+  export const wholeMinutes = (d: HrDuration): number => Math.round(toMs(d) / Time.MINUTE);
+  export const wholeHours = (d: HrDuration): number => Math.round(toMs(d) / Time.HOUR);
+  export const wholeDays = (d: HrDuration): number => Math.round(toMs(d) / Time.DAY);
 
   export const toMs = (d: HrDuration): number => d[0] / 1e3 + d[1] / 1e12;
   export const toSeconds = (d: HrDuration): number => toMs(d) / Time.SECOND;

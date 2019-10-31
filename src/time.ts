@@ -15,11 +15,11 @@ export namespace Time {
   export const hours = (h: number): Duration => h * Time.HOUR;
   export const days = (d: number): Duration => d * Time.DAY;
 
-  export const getMs = (d: Duration): number => Math.round(toMs(d));
-  export const getSeconds = (d: Duration): number => Math.round(toMs(d) / Time.SECOND);
-  export const getMinutes = (d: Duration): number => Math.round(toMs(d) / Time.MINUTE);
-  export const getHours = (d: Duration): number => Math.round(toMs(d) / Time.HOUR);
-  export const getDays = (d: Duration): number => Math.round(toMs(d) / Time.DAY);
+  export const wholeMs = (d: Duration): number => Math.round(toMs(d));
+  export const wholeSeconds = (d: Duration): number => Math.round(toMs(d) / Time.SECOND);
+  export const wholeMinutes = (d: Duration): number => Math.round(toMs(d) / Time.MINUTE);
+  export const wholeHours = (d: Duration): number => Math.round(toMs(d) / Time.HOUR);
+  export const wholeDays = (d: Duration): number => Math.round(toMs(d) / Time.DAY);
 
   export const toMs = (d: Duration): number => d;
   export const toSeconds = (d: Duration): number => toMs(d) / Time.SECOND;
