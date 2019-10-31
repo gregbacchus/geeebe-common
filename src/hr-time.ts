@@ -21,7 +21,7 @@ export namespace HrTime {
   export const wholeHours = (d: HrDuration): number => Math.round(toMs(d) / Time.HOUR);
   export const wholeDays = (d: HrDuration): number => Math.round(toMs(d) / Time.DAY);
 
-  export const toMs = (d: HrDuration): number => d[0] / 1e3 + d[1] / 1e12;
+  export const toMs = (d: HrDuration): number => d[0] * 1e3 + d[1] / 1e6;
   export const toSeconds = (d: HrDuration): number => toMs(d) / Time.SECOND;
   export const toMinutes = (d: HrDuration): number => toMs(d) / Time.MINUTE;
   export const toHours = (d: HrDuration): number => toMs(d) / Time.HOUR;
