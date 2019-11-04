@@ -28,10 +28,10 @@ program
   .command('init')
   .option('-l, --lib-only', 'Only install library helpers')
   .action((cmd) => {
+    const destination = process.cwd();
     const packageOriginal = JSON.parse(fs.readFileSync(resolve(destination, 'package.json')));
     const libOnly = cmd.libOnly || packageOriginal.libOnly;
     const source = resolve(__dirname, '..');
-    const destination = process.cwd();
 
     if (source === destination) {
       console.log('Cannot install into itself.');
