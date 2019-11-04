@@ -28,7 +28,8 @@ program
   .command('init')
   .option('-l, --lib-only', 'Only install library helpers')
   .action((cmd) => {
-    const libOnly = cmd.libOnly;
+    const packageOriginal = JSON.parse(fs.readFileSync(resolve(destination, 'package.json')));
+    const libOnly = cmd.libOnly || packageOriginal.libOnly;
     const source = resolve(__dirname, '..');
     const destination = process.cwd();
 
@@ -68,6 +69,8 @@ program
     if (!libOnly) {
       copy('nodemon.json');
       copyOnce('.vscode/launch.json');
+    } else {
+      fs.unlinkSync(resolve(destination, 'nodemon.json'));
     }
     copy('tsconfig.json');
     copy('tslint.json');
@@ -85,6 +88,7 @@ program
           postpublish: 'git push',
           test: './node_modules/.bin/jest --coverage',
         });
+        package.libOnly = libOnly;
         if (!libOnly) {
           package.scripts = Object.assign(package.scripts || {}, {
             start: 'node -r ts-node/register src/index.ts',
@@ -99,13 +103,31 @@ program
     patchJson(resolve(destination, '.vscode/settings.json'),
       (json) => {
         Object.assign(json, {
-          'eslint.enable': false,
+          'editor.codeActionsOnSave': {
+            'source.fixAll': true,
+            'source.fixAll.tslint': true,
+            'source.organizeImports': true,
+          },
           'editor.formatOnSave': true,
-          'files.trimTrailingWhitespace': true,
+          'editor.tabSize': 2,
+          'eslint.enable': false,
+          'files.eol': '\n',
+          'files.exclude': {
+            '**/*.js': {
+              when: '$(basename).ts',
+            },
+            '**/*.js.map': true,
+            '**/.DS_Store': true,
+            '**/.git': true,
+            '**/.idea': true,
+          },
           'files.insertFinalNewline': true,
-          'tslint.autoFixOnSave': true
+          'files.trimTrailingWhitespace': true,
+          'tslint.autoFixOnSave': true,
+          'tslint.exclude': 'node_modules',
+          'typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces': true,
         });
-      }
+      },
     );
 
     patchJson(resolve(destination, '.vscode/extensions.json'),
@@ -132,7 +154,11 @@ program
     );
 
     console.log('Installing packages...');
-    execSync('npm i -D @types/jest @types/node jest tslint typescript nodemon ts-node ts-jest');
+    const packages = ['@types/jest', '@types/node', 'jest', 'tslint', 'typescript', 'ts-node', 'ts-jest'];
+    if (!libOnly) {
+      packages.push('nodemon');
+    }
+    execSync('npm i -D ' + packages.join(' '));
 
     console.log('. Done');
   });
