@@ -48,7 +48,7 @@ program
 
     function copyOnce(file) {
       const toFile = file.endsWith('_publish') ? file.slice(0, -8) : file;
-      if (fs.exists(toFile)) return;
+      if (fs.existsSync(toFile)) return;
 
       console.log(`Copying ${toFile}...`);
       fs.copyFileSync(resolve(source, file), resolve(destination, toFile));
