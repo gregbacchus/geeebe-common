@@ -70,7 +70,9 @@ program
       copy('nodemon.json');
       copyOnce('.vscode/launch.json');
     } else {
-      fs.unlinkSync(resolve(destination, 'nodemon.json'));
+      if (fs.existsSync(resolve(destination, 'nodemon.json'))) {
+        fs.unlinkSync(resolve(destination, 'nodemon.json'));
+      }
     }
     copy('tsconfig.json');
     copy('tslint.json');
