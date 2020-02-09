@@ -104,7 +104,22 @@ program
 
     patchJson(resolve(destination, '.vscode/settings.json'),
       (json) => {
+        const spelling = new Array([
+          'asynciterable',
+          'camelcase',
+          'eqeqeq',
+          'esnext',
+          'geeebe',
+          'isnan',
+          'postpublish',
+        ].reduce(
+          (acc, word) => acc.add(word),
+          new Set(json['cSpell.words']),
+        ));
+        spelling.sort();
+
         Object.assign(json, {
+          'cSpell.words': spelling,
           'editor.codeActionsOnSave': {
             'source.fixAll': true,
             'source.organizeImports': true,
