@@ -139,7 +139,7 @@ program
           },
           'files.insertFinalNewline': true,
           'files.trimTrailingWhitespace': true,
-          'tslint.enable': true,
+          'tslint.enable': false,
           'typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces': true,
         });
       },
