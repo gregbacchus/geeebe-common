@@ -160,7 +160,7 @@ program
         set['codezombiech.gitignore'] = true;
 
         const recommendations = [];
-        set.forEach((key) => {
+        Object.keys(set).forEach((key) => {
           if (!set.hasOwnProperty(key) || !set[key]) return;
           recommendations.push(key);
         });
