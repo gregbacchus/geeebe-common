@@ -65,10 +65,7 @@ module.exports = {
       "multi-line"
     ],
     "dot-notation": "error",
-    "eqeqeq": [
-      "error",
-      "smart"
-    ],
+    "eqeqeq": "error",
     "guard-for-in": "error",
     "id-match": "error",
     "max-classes-per-file": "off",
