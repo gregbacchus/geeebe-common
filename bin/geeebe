@@ -104,7 +104,7 @@ program
 
     patchJson(resolve(destination, '.vscode/settings.json'),
       (json) => {
-        const spelling = new Array([
+        const spelling = Array.from([
           'asynciterable',
           'camelcase',
           'eqeqeq',
@@ -114,7 +114,7 @@ program
           'postpublish',
         ].reduce(
           (acc, word) => acc.add(word),
-          new Set(json['cSpell.words']),
+          new Set(json['cSpell.words'] || []),
         ));
         spelling.sort();
 
