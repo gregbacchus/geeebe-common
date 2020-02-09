@@ -1,6 +1,18 @@
 {
   "eslint.enable": false,
   "cSpell.words": [
-    "Mutex"
+    "Mutex",
+    "autoimport",
+    "codezombiech",
+    "dbaeumer",
+    "dockerignore",
+    "editorconfig",
+    "eslintignore",
+    "gitblame",
+    "kohler",
+    "npmignore",
+    "postpublish",
+    "steoates",
+    "waderyan"
   ]
 }

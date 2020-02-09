@@ -56,12 +56,13 @@ program
 
     try {
       fs.mkdirSync(resolve(destination, 'src'));
-    } catch{ }
+    } catch { }
     try {
       fs.mkdirSync(resolve(destination, '.vscode'));
-    } catch{ }
+    } catch { }
 
     copy('.editorconfig');
+    copy('.eslintignore');
     copy('.dockerignore');
     copy('.gitignore_publish');
     copy('.npmignore_publish');
@@ -75,7 +76,6 @@ program
       }
     }
     copy('tsconfig.json');
-    copy('tslint.json');
 
     patchJson(resolve(destination, 'package.json'),
       (package) => {
@@ -86,8 +86,8 @@ program
         package.scripts = Object.assign(package.scripts || {}, {
           build: 'rm -rf dist && npx tsc --outDir dist --sourceMap',
           lint: './node_modules/.bin/tslint --config tslint.json -t verbose src/**/*.ts',
-          prepublishOnly: 'npm run lint && npm run build && npm version patch',
           postpublish: 'git push',
+          prepublishOnly: 'npm run lint && npm run build && npm version patch',
           test: './node_modules/.bin/jest --coverage',
         });
         package.libOnly = libOnly;
@@ -99,7 +99,7 @@ program
           delete package.nodemonConfig;
         }
         delete package.jest;
-      }
+      },
     );
 
     patchJson(resolve(destination, '.vscode/settings.json'),
@@ -107,12 +107,11 @@ program
         Object.assign(json, {
           'editor.codeActionsOnSave': {
             'source.fixAll': true,
-            'source.fixAll.tslint': true,
             'source.organizeImports': true,
           },
           'editor.formatOnSave': true,
           'editor.tabSize': 2,
-          'eslint.enable': false,
+          'eslint.enable': true,
           'files.eol': '\n',
           'files.exclude': {
             '**/*.js': {
@@ -125,8 +124,6 @@ program
           },
           'files.insertFinalNewline': true,
           'files.trimTrailingWhitespace': true,
-          'tslint.autoFixOnSave': true,
-          'tslint.exclude': 'node_modules',
           'typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces': true,
         });
       },
@@ -142,21 +139,33 @@ program
         set['steoates.autoimport'] = true;
         set['editorconfig.editorconfig'] = true;
         set['christian-kohler.path-intellisense'] = true;
-        set['ms-vscode.vscode-typescript-tslint-plugin'] = true;
+        set['dbaeumer.vscode-eslint'] = true;
         set['waderyan.gitblame'] = true;
         set['codezombiech.gitignore'] = true;
 
         const recommendations = [];
-        for (const key in set) {
+        set.forEach((key) => {
           if (!set.hasOwnProperty(key) || !set[key]) return;
           recommendations.push(key);
-        }
+        });
         json.recommendations = recommendations;
-      }
+      },
     );
 
     console.log('Installing packages...');
-    const packages = ['@types/jest', '@types/node', 'jest', 'tslint', 'typescript', 'ts-node', 'ts-jest'];
+    const packages = [
+      '@types/jest',
+      '@types/node',
+      '@typescript-eslint/eslint-plugin',
+      '@typescript-eslint/eslint-plugin-tslint',
+      '@typescript-eslint/parser',
+      'eslint',
+      'eslint-plugin-prefer-arrow',
+      'jest',
+      'typescript',
+      'ts-node',
+      'ts-jest',
+    ];
     if (!libOnly) {
       packages.push('nodemon');
     }
