@@ -85,7 +85,7 @@ program
         });
         package.scripts = Object.assign(package.scripts || {}, {
           build: 'rm -rf dist && npx tsc --outDir dist --sourceMap',
-          lint: './node_modules/.bin/tslint --config tslint.json -t verbose src/**/*.ts',
+          lint: './node_modules/.bin/eslint src/ --ext .ts,.tsx',
           postpublish: 'git push',
           prepublishOnly: 'npm run lint && npm run build && npm version patch',
           test: './node_modules/.bin/jest --coverage',
@@ -181,6 +181,7 @@ program
       'typescript',
       'ts-node',
       'ts-jest',
+      'tslint',
     ];
     if (!libOnly) {
       packages.push('nodemon');
