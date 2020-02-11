@@ -63,6 +63,7 @@ program
 
     copy('.editorconfig');
     copy('.eslintignore');
+    copy('.eslintrc.js');
     copy('.dockerignore');
     copy('.gitignore_publish');
     copy('.npmignore_publish');
