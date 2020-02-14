@@ -22,11 +22,17 @@ module.exports = {
   ],
   "rules": {
     "@typescript-eslint/adjacent-overload-signatures": "error",
-    "@typescript-eslint/array-type": "error",
+    "@typescript-eslint/array-type": "off",
     "@typescript-eslint/ban-types": "error",
     "@typescript-eslint/class-name-casing": "error",
     "@typescript-eslint/consistent-type-assertions": "error",
     "@typescript-eslint/explicit-function-return-type": ["warn", { "allowExpressions": true }],
+    "@typescript-eslint/explicit-member-accessibility": ["error", {
+      accessibility: 'explicit',
+      overrides: {
+        constructors: 'no-public',
+      }
+    }],
     "@typescript-eslint/indent": [
       "error",
       2,
@@ -66,6 +72,7 @@ module.exports = {
       "multi-line"
     ],
     "dot-notation": "error",
+    "eol-last": ["warn", "always"],
     "eqeqeq": "error",
     "guard-for-in": "error",
     "id-match": "error",
@@ -81,6 +88,7 @@ module.exports = {
     "no-eval": "error",
     "no-fallthrough": "off",
     "no-invalid-this": "off",
+    "no-multiple-empty-lines": ["warn", { "max": 1 }],
     "no-new-wrappers": "error",
     "no-shadow": [
       "off",
@@ -106,6 +114,7 @@ module.exports = {
       "error",
       "never"
     ],
+    "padded-blocks": ["warn", "never"],
     "prefer-arrow/prefer-arrow-functions": "error",
     "prefer-const": "error",
     "radix": "error",
