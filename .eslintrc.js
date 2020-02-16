@@ -36,7 +36,7 @@ module.exports = {
     "@typescript-eslint/indent": [
       "error",
       2,
-      {}
+      { "SwitchCase": 1 }
     ],
     "@typescript-eslint/interface-name-prefix": "error",
     "@typescript-eslint/no-empty-function": "off",
