@@ -28,10 +28,7 @@ module.exports = {
     "@typescript-eslint/consistent-type-assertions": "error",
     "@typescript-eslint/explicit-function-return-type": ["warn", { "allowExpressions": true }],
     "@typescript-eslint/explicit-member-accessibility": ["error", {
-      accessibility: 'explicit',
-      overrides: {
-        constructors: 'no-public',
-      }
+      accessibility: 'no-public'
     }],
     "@typescript-eslint/indent": [
       "error",
