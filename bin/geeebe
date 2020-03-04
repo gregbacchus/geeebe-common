@@ -153,6 +153,7 @@ program
         original.forEach((rec) => {
           set[rec] = true;
         });
+        set['ms-vscode.vscode-typescript-tslint-plugin'] = false;
         set['steoates.autoimport'] = true;
         set['editorconfig.editorconfig'] = true;
         set['christian-kohler.path-intellisense'] = true;
