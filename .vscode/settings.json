@@ -1,5 +1,4 @@
 {
-  "eslint.enable": false,
   "cSpell.words": [
     "Mutex",
     "asynciterable",
@@ -19,5 +18,27 @@
     "postpublish",
     "steoates",
     "waderyan"
-  ]
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  },
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "eslint.enable": true,
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/*.js": {
+      "when": "$(basename).ts"
+    },
+    "**/*.js.map": true,
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.idea": true,
+    "**/node_modules": true
+  },
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "tslint.enable": false,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
 }

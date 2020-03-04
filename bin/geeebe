@@ -130,6 +130,7 @@ program
           'eslint.enable': true,
           'files.eol': '\n',
           'files.exclude': {
+            ...json['files.exclude'],
             '**/*.js': {
               when: '$(basename).ts',
             },
@@ -137,6 +138,7 @@ program
             '**/.DS_Store': true,
             '**/.git': true,
             '**/.idea': true,
+            '**/node_modules': true,
           },
           'files.insertFinalNewline': true,
           'files.trimTrailingWhitespace': true,
