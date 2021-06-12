@@ -6,10 +6,10 @@ export namespace Time {
   export const HOUR = 60 * Time.MINUTE;
   export const DAY = 24 * Time.HOUR;
 
-  export const past = (interval: Duration) => new Date(Date.now() - toMs(interval));
-  export const future = (interval: Duration) => new Date(Date.now() + toMs(interval));
+  export const past = (interval: Duration): Date => new Date(Date.now() - toMs(interval));
+  export const future = (interval: Duration): Date => new Date(Date.now() + toMs(interval));
 
-  export const ms = (ms: number): Duration => ms;
+  export const ms = (milliSeconds: number): Duration => milliSeconds;
   export const seconds = (s: number): Duration => s * Time.SECOND;
   export const minutes = (m: number): Duration => m * Time.MINUTE;
   export const hours = (h: number): Duration => h * Time.HOUR;

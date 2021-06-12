@@ -10,11 +10,11 @@ export namespace HrTime {
   export const HOUR = 60 * HrTime.MINUTE;
   export const DAY = 24 * HrTime.HOUR;
 
-  export const past = (interval: HrDuration) => new Date(Date.now() - toMs(interval));
-  export const future = (interval: HrDuration) => new Date(Date.now() + toMs(interval));
+  export const past = (interval: HrDuration): Date => new Date(Date.now() - toMs(interval));
+  export const future = (interval: HrDuration): Date => new Date(Date.now() + toMs(interval));
 
-  export const ns = (ns: number): HrDuration => [Math.round(ns / HrTime.SECOND), Math.round(ns % HrTime.SECOND)];
-  export const ms = (ms: number): HrDuration => ns(ms * HrTime.MS);
+  export const ns = (nanoSeconds: number): HrDuration => [Math.round(nanoSeconds / HrTime.SECOND), Math.round(nanoSeconds % HrTime.SECOND)];
+  export const ms = (milliSeconds: number): HrDuration => ns(milliSeconds * HrTime.MS);
   export const seconds = (s: number): HrDuration => ns(s * HrTime.SECOND);
   export const minutes = (m: number): HrDuration => ns(m * HrTime.MINUTE);
   export const hours = (h: number): HrDuration => ns(h * HrTime.HOUR);
