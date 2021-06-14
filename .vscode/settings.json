@@ -1,44 +1,29 @@
 {
-  "cSpell.words": [
-    "Mutex",
-    "asynciterable",
-    "autoimport",
-    "camelcase",
-    "codezombiech",
-    "dbaeumer",
-    "dockerignore",
-    "editorconfig",
-    "eqeqeq",
-    "eslintignore",
-    "geeebe",
-    "gitblame",
-    "isnan",
-    "kohler",
-    "npmignore",
-    "postpublish",
-    "steoates",
-    "waderyan"
-  ],
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.organizeImports": true
   },
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
+  "eslint.codeAction.disableRuleComment": {
+    "enable": true,
+    "location": "separateLine"
+  },
   "eslint.enable": true,
-  "files.eol": "\n",
   "files.exclude": {
     "**/*.js": {
       "when": "$(basename).ts"
     },
     "**/*.js.map": true,
+    "**/*.vscode": true,
     "**/.DS_Store": true,
-    "**/.git": true,
-    "**/.idea": true,
-    "**/node_modules": true
+    "**/.git/": true,
+    "**/.idea/": true,
+    "**/node_modules/": true
   },
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
-  "tslint.enable": false,
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "typescript.preferences.quoteStyle": "single",
 }
